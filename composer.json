@@ -1,0 +1,22 @@
+{
+	"name":        "nick4fake/settingsbundle",
+	"type":        "library",
+	"description": "Bundle providing Settings compiling",
+	"license":     "own",
+	"target-dir":  "Werkint/SettingsBundle",
+
+	"authors":  [
+		{
+			"name":  "Bogdan Yurov",
+			"email": "bogdan@yurov.me"
+		}
+	],
+	"require":  {
+		"php": ">=5.3"
+	},
+	"autoload": {
+		"psr-0": {
+			"Werkint\\SettingsBundle": ""
+		}
+	}
+}
