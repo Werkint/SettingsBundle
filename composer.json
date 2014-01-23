@@ -11,12 +11,14 @@
     ],
     "require":     {
         "symfony/framework-bundle": "~2.3",
+        "doctrine/common":          "*",
         "doctrine/orm":             "*",
 
         "php": ">=5.4"
     },
     "require-dev": {
-        "werkint/command-bundle": "0.1.x-dev"
+        "werkint/command-bundle":     "0.1.x-dev",
+        "doctrine/data-fixtures": "*"
     },
     "suggest":     {
         "werkint/command-bundle":            "Support of werkint:compile command",

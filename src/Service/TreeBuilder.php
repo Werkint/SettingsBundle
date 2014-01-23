@@ -1,17 +1,30 @@
 <?php
 namespace Werkint\Bundle\SettingsBundle\Service;
 
+use Werkint\Bundle\SettingsBundle\Entity\Setting;
+use Werkint\Bundle\SettingsBundle\Entity\SettingInterface;
+
+/**
+ * TreeBuilder.
+ *
+ * @author Bogdan Yurov <bogdan@yurov.me>
+ */
 class TreeBuilder
 {
-
     protected $repo;
 
+    /**
+     * @param SettingInterface $repo
+     */
     public function __construct(
-        SettingsRepo $repo
+        SettingInterface $repo
     ) {
         $this->repo = $repo;
     }
 
+    /**
+     * @return array
+     */
     public function getTree()
     {
         return $this->tree(
@@ -19,13 +32,17 @@ class TreeBuilder
         );
     }
 
+    /**
+     * @param Setting $node
+     * @return array
+     */
     protected function getTreeNode(Setting $node)
     {
         $ret = [
             'parentType' => null,
             'parentId'   => null,
             'children'   => [],
-            'env'        => $node->getEnvironment() ? $node->getEnvironment()->getTitle() : null,
+            'env'        => $node->getEnvironment(),
             'class'      => $node->getClass(),
             'title'      => $node->getTitle(),
             'type'       => $node->getType()->getClass(),
@@ -41,6 +58,10 @@ class TreeBuilder
         return $ret;
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     protected function sortTree(array &$data)
     {
         usort($data, function ($a, $b) {
@@ -66,6 +87,10 @@ class TreeBuilder
         return true;
     }
 
+    /**
+     * @param $nodes
+     * @return array
+     */
     protected function tree($nodes)
     {
         $ret = [];
@@ -81,10 +106,9 @@ class TreeBuilder
             $ret[] = $obj;
         }
 
-        // Сортируем древо
+        // Sort the tree
         $this->sortTree($ret);
 
         return $ret;
     }
-
 }

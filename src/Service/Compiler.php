@@ -2,7 +2,13 @@
 namespace Werkint\Bundle\SettingsBundle\Service;
 
 use Symfony\Component\Yaml\Escaper;
+use Werkint\Bundle\SettingsBundle\Entity\Setting;
 
+/**
+ * Compiler.
+ *
+ * @author Bogdan Yurov <bogdan@yurov.me>
+ */
 class Compiler
 {
     protected $data;

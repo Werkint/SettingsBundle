@@ -1,6 +1,13 @@
 <?php
 namespace Werkint\Bundle\SettingsBundle\Service;
 
+use Werkint\Bundle\SettingsBundle\Entity\SettingInterface;
+
+/**
+ * Settings.
+ *
+ * @author Bogdan Yurov <bogdan@yurov.me>
+ */
 class Settings
 {
     protected $repo;
@@ -9,7 +16,7 @@ class Settings
     protected $environment;
 
     public function __construct(
-        SettingsRepo $repo,
+        SettingInterface $repo,
         array $parameters,
         $directory,
         $environment
@@ -31,6 +38,9 @@ class Settings
         );
     }
 
+    /**
+     * @return array
+     */
     public function getTree()
     {
         $tree = new TreeBuilder(
