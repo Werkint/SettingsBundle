@@ -1,0 +1,61 @@
+Werkint\Bundle\SettingsBundle\Entity\Setting:
+  type: entity
+  table: werkint_setting
+  repositoryClass: Werkint\Bundle\SettingsBundle\Entity\SettingRepository
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+  fields:
+    environment:
+      type: string
+      length: 30
+      nullable: true
+    class:
+      type: string
+      length: 100
+      nullable: true
+    title:
+      type: string
+      length: 100
+      nullable: true
+    parameter:
+      type: string
+      length: 100
+      nullable: true
+    value:
+      type: string
+      length: 10000
+      nullable: true
+    isEncrypted:
+      type: boolean
+      nullable: false
+      column: is_encrypted
+  oneToMany:
+    children:
+      targetEntity: Werkint\Bundle\SettingsBundle\Entity\Setting
+      cascade: ["remove"]
+      mappedBy: parent
+      inversedBy: null
+      orderBy: null
+  manyToOne:
+    parent:
+      targetEntity: Werkint\Bundle\SettingsBundle\Entity\Setting
+      cascade: ["persist"]
+      mappedBy: null
+      inversedBy: null
+      orderBy: null
+      joinColumns:
+        id_parent:
+          referencedColumnName: id
+    type:
+      targetEntity: Werkint\Bundle\SettingsBundle\Entity\SettingType
+      cascade: { }
+      mappedBy: null
+      inversedBy: null
+      orderBy: null
+      joinColumns:
+        id_type:
+          referencedColumnName: id

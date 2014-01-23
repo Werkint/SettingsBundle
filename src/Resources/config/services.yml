@@ -1,0 +1,7 @@
+services:
+    werkint.settings:
+        class: Werkint\Bundle\SettingsBundle\Service\Settings
+        arguments:
+            - @werkint.repo.settings
+            - %app.settings.dir%
+            - %kernel.environment%

@@ -1,0 +1,15 @@
+Werkint\Bundle\SettingsBundle\Entity\SettingType:
+  type: entity
+  table: werkint_setting_type
+  repositoryClass: Werkint\Bundle\SettingsBundle\Entity\SettingTypeRepository
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: IDENTITY
+  fields:
+    class:
+      type: string
+      length: 30
+      nullable: false

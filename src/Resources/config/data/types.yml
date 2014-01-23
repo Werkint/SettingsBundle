@@ -1,0 +1,12 @@
+root:
+  - root
+  - group
+  - string
+  - rawstring
+  - integer
+  - float
+  - boolean
+  - array
+  - password
+  - money
+  - html

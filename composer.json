@@ -1,23 +1,38 @@
 {
-    "name":        "werkint/settingsbundle",
-    "type":        "library",
+    "name":        "werkint/settings-bundle",
+    "type":        "symfony-bundle",
     "description": "Bundle providing Settings compiling",
-    "license":     "own",
-    "target-dir":  "Werkint/SettingsBundle",
-
-    "authors":  [
+    "license":     "GPL-3.0+",
+    "authors":     [
         {
             "name":  "Bogdan Yurov",
             "email": "bogdan@yurov.me"
         }
     ],
-    "version":  "1.0.0",
-    "require":  {
+    "require":     {
+        "symfony/framework-bundle": "~2.3",
+        "doctrine/orm":             "*",
+
         "php": ">=5.4"
     },
-    "autoload": {
-        "psr-0": {
-            "Werkint\\SettingsBundle": ""
+    "require-dev": {
+        "werkint/command-bundle": "0.1.x-dev"
+    },
+    "suggest":     {
+        "werkint/command-bundle":            "Support of werkint:compile command",
+        "doctrine/doctrine-fixtures-bundle": "SettingType fixtures",
+        "stof/doctrine-extensions-bundle":   "Better tree usage"
+    },
+    "autoload":    {
+        "psr-4": {
+            "Werkint\\Bundle\\SettingsBundle\\": "src/"
         }
-    }
+    },
+    "extra":       {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+
+    "minimum-stability": "dev"
 }
