@@ -3,6 +3,7 @@ namespace Werkint\Bundle\SettingsBundle\Service;
 
 use Symfony\Component\Yaml\Escaper;
 use Werkint\Bundle\SettingsBundle\Entity\Setting;
+use Werkint\Bundle\SettingsBundle\Entity\SettingInterface;
 
 /**
  * Compiler.
@@ -11,32 +12,40 @@ use Werkint\Bundle\SettingsBundle\Entity\Setting;
  */
 class Compiler
 {
-    protected $data;
-
-    public function __construct(
-        SettingsData $data
-    ) {
-        $this->data = $data;
-    }
-
-    protected $parameters = [];
-
+    protected $repo;
+    protected $encrypter;
+    protected $directory;
+    protected $envs;
 
     /**
-     * Компилирует все настройки для всех окружений
+     * @param SettingInterface $repo
+     * @param Encrypter        $encrypter
+     * @param string           $directory
+     * @param array            $envs
      */
-    public function compile(
+    public function __construct(
+        SettingInterface $repo,
+        Encrypter $encrypter,
         $directory,
-        $environment
+        array $envs
     ) {
-        $envs = $this->data->getEnvironments();
-        foreach ($envs as $env) {
-            /** @var Environment $env */
-            $filename = $directory . '/' . $environment . '_' . $env->getClass() . '.yml';
-            if (file_exists($filename)) {
-                unlink($filename);
+        $this->repo = $repo;
+        $this->encrypter = $encrypter;
+        $this->directory = $directory;
+        $this->envs = $envs;
+    }
+
+    /**
+     * @param string|null $env
+     */
+    public function compile($env = null)
+    {
+        if ($env) {
+            $this->compileEnv($env);
+        } else {
+            foreach ($this->envs as $env) {
+                $this->compileEnv($env);
             }
-            $this->compileEnv($env, $filename);
         }
     }
 
@@ -44,13 +53,18 @@ class Compiler
 
     /**
      * Компилирует все настройки заданного окружения
-     * @param Environment $env
-     * @param string      $filename
+     *
+     * @param string $env
      */
-    protected function compileEnv(Environment $env, $filename)
+    protected function compileEnv($env)
     {
+        $filename = $this->directory . '/' . $env . '.yml';
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+
         $this->parameters = [];
-        $nodes = $this->data->getRootNodes();
+        $nodes = $this->repo->getRootNodes();
         $data = [];
         foreach ($nodes as $node) {
             /** @var Setting $node */
@@ -69,14 +83,15 @@ class Compiler
 
     /**
      * Проверяет, применима ли настройка к окружению
-     * @param Setting     $setting
-     * @param Environment $env
+     *
+     * @param Setting $setting
+     * @param string  $env
      * @return bool
      */
-    protected function checkEnv(Setting $setting, Environment $env)
+    protected function checkEnv(Setting $setting, $env)
     {
         if ($setting->getEnvironment()) {
-            if ($setting->getEnvironment()->getClass() != $env->getClass()) {
+            if ($setting->getEnvironment() != $env) {
                 return false;
             }
         }
@@ -85,14 +100,15 @@ class Compiler
 
     /**
      * Компилирует настройку в строку yaml вместе с дочерними.
-     * @param Environment $env
-     * @param Setting     $setting
-     * @param Setting     $parent
-     * @param string      $tab
+     *
+     * @param string  $env
+     * @param Setting $setting
+     * @param Setting $parent
+     * @param string  $tab
      * @return string
      */
     protected function compileNode(
-        Environment $env,
+        $env,
         Setting $setting,
         Setting $parent = null,
         $tab = ''
@@ -101,11 +117,12 @@ class Compiler
             return null;
         }
 
-        $val = $this->data->keyDecrypt(
+        $val = $this->encrypter->keyDecrypt(
             $setting->getValue(), $setting->getId()
         );
         if ($setting->getParameter()) {
             $this->parameters[$setting->getParameter()] = $val;
+            return null;
         }
 
         $ret = [];
@@ -136,6 +153,7 @@ class Compiler
 
     /**
      * Компилирует подписи к настройкам
+     *
      * @param Setting $setting
      * @return string
      */
@@ -149,6 +167,7 @@ class Compiler
 
     /**
      * Компилирует значение настройки
+     *
      * @param Setting $setting
      * @param string  $val
      * @return string

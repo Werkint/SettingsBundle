@@ -1,0 +1,232 @@
+.werkint-settings-pagewrapper {
+  .action-apply {
+    img {
+      width: 20px;
+    }
+  }
+
+  .action-toggle {
+    display: inline-block;
+    .active {
+      display: none;
+    }
+    &.active {
+      .unactive {
+        display: none;
+      }
+      .active {
+        display: inline;
+      }
+    }
+    &.loading {
+      .active, .unactive {
+        display: none;
+      }
+      width: 1.2em;
+      height: 1.2em;
+      background: url("#{$const-imgpath}/preloader.gif") no-repeat center center;
+      background-size: 90% 90%;
+    }
+  }
+
+  .settings-systems {
+    margin: 14px;
+    .settings-form {
+      margin: .4em !important;
+    }
+    .small {
+      font-size: .8em;
+    }
+    table {
+      width: 27em !important;
+    }
+    .cont {
+      background: #eee;
+      border: solid 1px #cdcdcd;
+      border-left: solid 2px #82a1a9;
+      padding: 4px 0px 4px 13px;
+      margin: 4px 0;
+      margin-right: .28em;
+      &.small {
+        padding: .6em 1.2em .8em;
+      }
+      table {
+        margin: 0 auto;
+      }
+    }
+    .buttons-cont {
+      overflow: hidden;
+      span {
+        display: inline-block;
+        line-height: 2.3em;
+        color: red;
+      }
+      .buttons {
+        padding: .2em .5em;
+        float: right;
+        &.loading {
+          margin-right: .8em;
+          height: 2em;
+          width: 5em;
+          background: url("/res/img/preloader.gif") no-repeat right center;
+          background-size: auto 90%;
+          button {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  #setting_list {
+    h2 {
+      margin-bottom: .2em;
+    }
+    .settings-form {
+      margin: .4em;
+      &.array-node {
+        margin: 0;
+      }
+    }
+    .noremove {
+      .actions-remove {
+        display: none;
+      }
+    }
+    h3.shown {
+      margin-bottom: .7em;
+    }
+    a.action-apply {
+      width: 1.4em;
+      height: 1.4em;
+      opacity: 0.5;
+      cursor: default;
+      &.active {
+        opacity: 1;
+        cursor: pointer;
+      }
+    }
+  }
+
+
+  .settings-form {
+    margin: .7em;
+    h3 {
+      font-size: .8em;
+      margin: .2em 0;
+      .action-toggle {
+        float: right;
+        margin-right: 14px;
+      }
+      .env {
+        color: gray;
+        display: inline-block;
+        font-size: .7em;
+        vertical-align: middle;
+        font-weight: normal;
+      }
+    }
+    ul {
+      margin-bottom: .4em;
+      li {
+        background: white;
+        border: solid 1px #cdcdcd;
+        border-left: solid 2px #82a1a9;
+        padding: 4px 0px 5px 13px;
+        margin-top: -1px;
+        margin-right: 5px;
+        select {
+          width: 10em;
+          height: 3em;
+        }
+        .select2-container {
+          margin-bottom: .24em;
+        }
+        .action-toggle {
+          margin-bottom: .8em;
+        }
+        &.type-group {
+          background: #f3f3f9;
+        }
+        &.type-root {
+          background: #e9eef9;
+        }
+        &.type-array-node {
+          border-width: 0;
+          margin-bottom: .4em;
+          padding: .2em;
+          padding-right: 0;
+          background: #eee;
+          ul {
+            margin: 0;
+          }
+          .actions {
+            font-size: .8em;
+            text-align: center;
+            &.right {
+              text-align: right;
+              padding: .3em 1em;
+            }
+          }
+        }
+        &.type-html {
+          table {
+            margin: 0 !important;
+            width: auto;
+            &.mceLayout {
+              margin: 1em;
+            }
+          }
+          a {
+            top: auto;
+            margin: 0;
+            position: static;
+          }
+          .title {
+            text-align: left;
+            float: none;
+            display: block;
+            width: 100%;
+          }
+          textarea {
+            box-sizing: border-box;
+            height: 11em;
+            width: 95%;
+            margin: .2em 3em 0 0;
+          }
+        }
+        &.type-boolean {
+          .global-icon {
+            opacity: 0;
+            cursor: default;
+          }
+        }
+        label {
+          text-align: right;
+          display: block;
+          a {
+            top: 3px;
+            position: relative;
+            margin-right: 8px;
+          }
+          .title {
+            float: left;
+            margin-top: 8px;
+            .env {
+              color: gray;
+              display: inline-block;
+              font-size: .7em;
+              vertical-align: middle;
+            }
+          }
+        }
+        input[type="text"] {
+          padding-top: .2em;
+          padding-bottom: .2em;
+          margin: .2em 0;
+          width: 13em;
+        }
+      }
+    }
+  }
+}

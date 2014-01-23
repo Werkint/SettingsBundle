@@ -1,6 +1,7 @@
 <?php
 namespace Werkint\Bundle\SettingsBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -24,6 +25,20 @@ class WerkintSettingsExtension extends Extension
         $container->setParameter(
             'werkint_settings_data',
             $configDir . '/data'
+        );
+
+        $processor = new Processor();
+        $config = $processor->processConfiguration(
+            new Configuration($this->getAlias()),
+            $configs
+        );
+        $container->setParameter(
+            $this->getAlias() . '_dir',
+            $config['dir']
+        );
+        $container->setParameter(
+            $this->getAlias() . '_envs',
+            $config['envs']
         );
 
         $loader = new YamlFileLoader(

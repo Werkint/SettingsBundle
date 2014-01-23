@@ -1,7 +1,40 @@
+# Service classes
+parameters:
+    werkint.repo.setting.class:     Werkint\Bundle\SettingsBundle\Entity\SettingRepository
+    werkint.repo.settingtype.class: Werkint\Bundle\SettingsBundle\Entity\SettingRepository
+
 services:
-    werkint.settings:
-        class: Werkint\Bundle\SettingsBundle\Service\Settings
+    werkint.settings.encrypter:
+        class: Werkint\Bundle\SettingsBundle\Service\Encrypter
+    werkint.settings.treebuilder:
+        class: Werkint\Bundle\SettingsBundle\Service\TreeBuilder
         arguments:
-            - @werkint.repo.settings
-            - %app.settings.dir%
-            - %kernel.environment%
+            - @werkint.repo.setting
+            - @werkint.settings.encrypter
+    werkint.settings.compiler:
+        class: Werkint\Bundle\SettingsBundle\Service\Compiler
+        arguments:
+            - @werkint.repo.setting
+            - @werkint.settings.encrypter
+            - %werkint_settings_dir%
+            - %werkint_settings_envs%
+
+    # Repositories
+    werkint.repo.setting:
+        class:           %werkint.repo.setting.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method:  getRepository
+        arguments:       [WerkintSettingsBundle:Setting]
+    werkint.repo.settingtype:
+        class:           %werkint.repo.settingtype.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method:  getRepository
+        arguments:       [WerkintSettingsBundle:SettingType]
+
+    # Twig extension
+    werkint.settings.twig.settingsextension:
+        class:  Werkint\Bundle\SettingsBundle\Service\Twig\WerkintSettingsExtension
+        arguments:
+            - @translator
+        tags:
+            - { name: twig.extension }

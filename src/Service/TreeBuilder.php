@@ -12,14 +12,18 @@ use Werkint\Bundle\SettingsBundle\Entity\SettingInterface;
 class TreeBuilder
 {
     protected $repo;
+    protected $encrypter;
 
     /**
      * @param SettingInterface $repo
+     * @param Encrypter        $encrypter
      */
     public function __construct(
-        SettingInterface $repo
+        SettingInterface $repo,
+        Encrypter $encrypter
     ) {
         $this->repo = $repo;
+        $this->encrypter = $encrypter;
     }
 
     /**
@@ -47,7 +51,7 @@ class TreeBuilder
             'title'      => $node->getTitle(),
             'type'       => $node->getType()->getClass(),
             'sid'        => $node->getId(),
-            'value'      => $this->repo->keyDecrypt($node->getValue(), $node->getId()),
+            'value'      => $this->encrypter->keyDecrypt($node->getValue(), $node->getId()),
         ];
         if ($node->getParent()) {
             $ret = array_merge($ret, [

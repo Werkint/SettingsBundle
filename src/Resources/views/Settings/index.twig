@@ -1,0 +1,20 @@
+{% extends 'WerkintSettingsBundle::layout.twig' %}
+
+{% trans_default_domain "WerkintSettings" %}
+
+{% block werkint_settings_title %}{{ 'page.title'|trans }}{% endblock %}
+
+{% block werkint_settings_page %}
+  <div class="settings-systems">
+    <div class="cont buttons-cont">
+      <span>{{ 'page.update'|trans }}</span>
+      <div class="buttons">
+        <button id="action_update_settings">{{ 'page.settings'|trans }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-form" id="setting_list">
+    {% include 'WerkintSettingsBundle:Settings:chunk.twig' with {'nodes':nodes} %}
+  </div>
+{% endblock %}

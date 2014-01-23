@@ -14,10 +14,14 @@
         "doctrine/common":          "*",
         "doctrine/orm":             "*",
 
+        "werkint/webapp-bundle":    "0.1.x-dev",
+        "werkint/webscript-bundle": "0.1.x-dev",
+
+
         "php": ">=5.4"
     },
     "require-dev": {
-        "werkint/command-bundle":     "0.1.x-dev",
+        "werkint/command-bundle": "0.1.x-dev",
         "doctrine/data-fixtures": "*"
     },
     "suggest":     {

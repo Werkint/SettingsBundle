@@ -17,6 +17,7 @@ class Setting
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->isEncrypted = false;
     }
 
     // -- Methods ---------------------------------------

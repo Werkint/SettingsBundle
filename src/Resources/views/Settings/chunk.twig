@@ -1,0 +1,54 @@
+{% trans_default_domain "WerkintSettings" %}
+
+{% if nodes.sid is not defined %}
+  <ul>
+    {% for node in nodes %}
+      <li class="type-{{ node.parentType != 'array' ? node.type : 'array-node' }}">
+        {% include 'WerkintSettingsBundle:Settings:chunk.twig' with{'nodes':node} %}
+        {% if node.parentType == 'array' %}
+          <div class="actions right actions-remove">
+            <button data-setting-sid="{{ node.sid }}">{{ 'page.remove'|trans }}</button>
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% elseif nodes.children|length == 0 %}
+  <label class="type-{{ node.type }}">
+    <span class="title">{{ nodes.title }}
+      {% if nodes.env %}<span class="env">[{{ nodes.env }}]</span>{% endif %}
+    </span>
+    {% if nodes.type == 'html' %}
+      <textarea id="text_ar_{{ nodes.sid }}" data-setting-sid="{{ nodes.sid }}" disabled="true">
+        {{ nodes.value }}
+      </textarea>
+      <a href="#edit" class="action-edit">
+        <img src="{{ asset('bundles/werkintsettings/images/edit.png') }}" alt="edit"/>
+      </a>
+    {% elseif nodes.type == 'boolean' %}
+      {{ settingToggler('boolean-type', 'systems_from', nodes.value, [('page.stat.on'|trans), ('page.stat.off'|trans)]) }}
+      <input type="hidden" class="sid" value="{{ nodes.sid }}">
+    {% else %}
+      <input type="text" class="editable" value="{{ nodes.value }}" data-setting-sid="{{ nodes.sid }}"/>
+      <a href="#apply" class="action-apply">
+        <img src="{{ asset('bundles/werkintsettings/images/ok.png') }}" alt="ok"/>
+      </a>
+    {% endif %}
+  </label>
+{% else %}
+  <div class="settings-form {{ nodes.parentType != 'array' ? 'collapsible' : 'array-node' }}">
+    {% if nodes.parentType != 'array' %}
+      <h3><a href="#" name="setting-{{ nodes.sid }}" class="setting-{{ nodes.sid }}">{{ nodes.title }}</a>
+        {% if nodes.env %}<span class="env">[{{ nodes.env }}]</span>{% endif %}
+      </h3>
+    {% endif %}
+    <div class="collapse-cont {{ nodes.children|length < 2 ? 'noremove' : '' }}">
+      {% include 'WerkintSettingsBundle:Settings:chunk.twig' with{'nodes':nodes.children,'parent':nodes} %}
+      {% if nodes.type == 'array' %}
+        <div class="actions">
+          <button class="action-add-arraynode" data-parentid="{{ nodes.sid }}">{{ 'page.addnode'|trans }}</button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

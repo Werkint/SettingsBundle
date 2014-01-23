@@ -19,19 +19,22 @@ class SettingsFlushCommand extends ContainerAwareCommand
             ->setDescription('Flushes config');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(
         InputInterface $input,
         OutputInterface $output
     ) {
         $output->write('Compiling... ');
-        $this->serviceSettings()->compile();
+        $this->serviceCompiler()->compile();
         $output->writeln('done');
     }
 
     // -- Service ---------------------------------------
 
-    protected function serviceSettings()
+    protected function serviceCompiler()
     {
-        return $this->getContainer()->get('werkint.settings');
+        return $this->getContainer()->get('werkint.settings.compiler');
     }
 }

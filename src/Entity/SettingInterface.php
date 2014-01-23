@@ -14,4 +14,10 @@ interface SettingInterface extends ObjectRepository
      * @return Setting[]
      */
     public function getRootNodes();
+
+    /**
+     * @param int $id
+     * @return Setting|null
+     */
+    public function find($id);
 } 
