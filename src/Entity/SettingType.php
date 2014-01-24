@@ -8,6 +8,11 @@ namespace Werkint\Bundle\SettingsBundle\Entity;
  */
 class SettingType
 {
+    public function __toString()
+    {
+        return $this->getClass();
+    }
+
     /**
      * @var string
      */
@@ -51,8 +56,49 @@ class SettingType
         return $this->id;
     }
 
-    public function __toString()
+    /**
+     * @var boolean
+     */
+    protected $isGroup;
+
+    /**
+     * @param boolean $isArray
+     * @return $this
+     */
+    public function setIsArray($isArray)
     {
-        return $this->getClass();
+        $this->isArray = $isArray;
+        return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getIsArray()
+    {
+        return $this->isArray;
+    }
+
+    /**
+     * @param boolean $isGroup
+     * @return $this
+     */
+    public function setIsGroup($isGroup)
+    {
+        $this->isGroup = $isGroup;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsGroup()
+    {
+        return $this->isGroup;
+    }
+
+    /**
+     * @var boolean
+     */
+    protected $isArray;
 }

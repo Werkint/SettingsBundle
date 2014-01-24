@@ -1,12 +1,45 @@
 root:
-  - root
-  - group
-  - string
-  - rawstring
-  - integer
-  - float
-  - boolean
-  - array
-  - password
-  - money
-  - html
+  -
+    class: root
+    isGroup: true
+    isArray: false
+  -
+    class: group
+    isGroup: true
+    isArray: false
+  -
+    class: array
+    isGroup: true
+    isArray: true
+  -
+    class: string
+    isGroup: false
+    isArray: false
+  -
+    class: rawstring
+    isGroup: false
+    isArray: false
+  -
+    class: integer
+    isGroup: false
+    isArray: false
+  -
+    class: float
+    isGroup: false
+    isArray: false
+  -
+    class: boolean
+    isGroup: false
+    isArray: false
+  -
+    class: password
+    isGroup: false
+    isArray: false
+  -
+    class: money
+    isGroup: false
+    isArray: false
+  -
+    class: html
+    isGroup: false
+    isArray: false

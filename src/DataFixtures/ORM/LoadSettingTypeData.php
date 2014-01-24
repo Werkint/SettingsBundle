@@ -36,9 +36,11 @@ class LoadSettingTypeData extends AbstractFixture implements
      */
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getData() as $class) {
+        foreach ($this->getData() as $drow) {
             $row = new SettingType();
-            $row->setClass($class);
+            $row->setClass($drow['class'])
+                ->setIsArray($drow['isArray'])
+                ->setIsGroup($drow['isGroup']);
             $manager->persist($row);
             $this->addReference('setting-type-' . $row->getClass(), $row);
         }

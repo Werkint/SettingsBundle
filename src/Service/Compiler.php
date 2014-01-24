@@ -127,7 +127,14 @@ class Compiler
 
         $ret = [];
         foreach ($setting->getChildren() as $child) {
-            $ret[] = $this->compileNode($env, $child, $setting, $tab . '    ');
+            $row = $this->compileNode($env, $child, $setting, $tab . '    ');
+            if ($row) {
+                $ret[] = $row;
+            }
+        }
+
+        if ($setting->getType()->getIsGroup() && !$setting->getType()->getIsArray() && !count($ret)) {
+            return '';
         }
 
         $return = '';

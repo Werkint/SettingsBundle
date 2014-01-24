@@ -13,3 +13,11 @@ Werkint\Bundle\SettingsBundle\Entity\SettingType:
       type: string
       length: 30
       nullable: false
+    isGroup:
+      type: boolean
+      nullable: false
+      column: is_group
+    isArray:
+      type: boolean
+      nullable: false
+      column: is_array
