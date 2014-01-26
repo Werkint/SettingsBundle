@@ -21,6 +21,11 @@ class SettingsController extends Controller
         return $this->get('werkint.repo.setting');
     }
 
+    protected function serviceSettingsCompiler()
+    {
+        return $this->get('werkint.settings.compiler');
+    }
+
     protected function serviceTreebuilder()
     {
         return $this->get('werkint.settings.treebuilder');
@@ -93,13 +98,12 @@ class SettingsController extends Controller
      */
     public function updateAction()
     {
-        $this->serviceSettings()->compile();
-        $envs = $this->serviceSettingsRepo()->getEnvironments();
+        $this->serviceSettingsCompiler()->compile();
+        $envs = $this->container->getParameter('werkint_settings_envs');
         $command = '';
-        $debug = $this->container->getParameter('kernel.debug') ? 'dev' : 'prod';
         $path = $this->container->getParameter('kernel.root_dir');
         foreach ($envs as $env) {
-            $command .= 'php ' . $path . '/console cache:clear --env=' . $debug . '_' . $env->getClass() . ';';
+            $command .= 'php ' . $path . '/console cache:clear --env=' . $env . ';';
         }
         exec($command, $ret);
 
