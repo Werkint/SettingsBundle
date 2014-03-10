@@ -1,5 +1,5 @@
 <?php
-namespace Werkin\Bundle\SettingBundle\DataFixtures\ORM;
+namespace Werkint\Bundle\SettingBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
