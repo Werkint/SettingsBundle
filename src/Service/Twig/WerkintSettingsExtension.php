@@ -19,18 +19,21 @@ class WerkintSettingsExtension extends AbstractExtension
         TranslatorInterface $translator
     ) {
         $this->translator = $translator;
+
+        parent::__construct();
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function init(){
+    protected function init()
+    {
         $this->addFunction('settingToggler', true, function (
             $name,
             $class,
             $isactive,
             $labels = null
-        )  {
+        ) {
             if (!$labels) {
                 $labels = [
                     $this->translator->trans('turn.on', [], 'WerkintSettings'),
