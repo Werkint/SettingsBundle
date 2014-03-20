@@ -1,12 +1,8 @@
 <?php
 namespace Werkint\Bundle\SettingsBundle\Service\Twig;
 
-use Diplom\Data\Entity\Category;
-use Diplom\Data\Entity\WorkFile;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Werkint\Bundle\WebappBundle\Twig\AbstractExtension;
+use Werkint\Bundle\FrameworkExtraBundle\Twig\AbstractExtension;
 
 /**
  * WerkintSettingsExtension.
@@ -17,17 +13,28 @@ class WerkintSettingsExtension extends AbstractExtension
 {
     const EXT_NAME = 'werkint_settings';
 
-    /**
-     * @param TranslatorInterface $translator
-     */
+    protected $translator;
+
     public function __construct(
         TranslatorInterface $translator
     ) {
-        $this->addFunction('settingToggler', true, function ($name, $class, $isactive, $labels = null) use (&$translator) {
+        $this->translator = $translator;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function init(){
+        $this->addFunction('settingToggler', true, function (
+            $name,
+            $class,
+            $isactive,
+            $labels = null
+        )  {
             if (!$labels) {
                 $labels = [
-                    $translator->trans('turn.on', [], 'WerkintSettings'),
-                    $translator->trans('turn.off', [], 'WerkintSettings'),
+                    $this->translator->trans('turn.on', [], 'WerkintSettings'),
+                    $this->translator->trans('turn.off', [], 'WerkintSettings'),
                 ];
             }
 
