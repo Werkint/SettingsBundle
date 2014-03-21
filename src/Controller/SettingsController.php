@@ -3,7 +3,7 @@ namespace Werkint\Bundle\SettingsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Werkint\Bundle\WebappBundle\Annotation as Rest;
+use Werkint\Bundle\FrameworkExtraBundle\Annotation as Rest;
 
 /**
  * SettingsController.
