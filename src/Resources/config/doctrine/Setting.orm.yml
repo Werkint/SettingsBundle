@@ -38,24 +38,18 @@ Werkint\Bundle\SettingsBundle\Entity\Setting:
       targetEntity: Werkint\Bundle\SettingsBundle\Entity\Setting
       cascade: ["remove"]
       mappedBy: parent
-      inversedBy: null
-      orderBy: null
   manyToOne:
     parent:
       targetEntity: Werkint\Bundle\SettingsBundle\Entity\Setting
       cascade: ["persist"]
-      mappedBy: null
-      inversedBy: null
-      orderBy: null
+      inversedBy: children
       joinColumns:
         id_parent:
           referencedColumnName: id
     type:
       targetEntity: Werkint\Bundle\SettingsBundle\Entity\SettingType
       cascade: { }
-      mappedBy: null
-      inversedBy: null
-      orderBy: null
+      inversedBy: settings
       joinColumns:
         id_type:
           referencedColumnName: id

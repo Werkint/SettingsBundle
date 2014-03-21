@@ -1,6 +1,9 @@
 <?php
 namespace Werkint\Bundle\SettingsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * SettingType.
  *
@@ -8,10 +11,20 @@ namespace Werkint\Bundle\SettingsBundle\Entity;
  */
 class SettingType
 {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->settings = new ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->getClass();
     }
+
+    // -- Entity ---------------------------------------
 
     /**
      * @var string
@@ -22,6 +35,44 @@ class SettingType
      * @var integer
      */
     protected $id;
+
+    /**
+     * @var Collection
+     */
+    protected $settings;
+
+    /**
+     * Get setting
+     *
+     * @return Collection
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * Add setting
+     *
+     * @param Setting $settings
+     * @return Setting
+     */
+    public function addSetting(Setting $settings)
+    {
+        $this->settings[] = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Remove setting
+     *
+     * @param Setting $settings
+     */
+    public function removeSetting(Setting $settings)
+    {
+        $this->settings->removeElement($settings);
+    }
 
     /**
      * Set class

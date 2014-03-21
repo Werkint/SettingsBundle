@@ -21,3 +21,7 @@ Werkint\Bundle\SettingsBundle\Entity\SettingType:
       type: boolean
       nullable: false
       column: is_array
+  oneToMany:
+    settings:
+      targetEntity: Werkint\Bundle\SettingsBundle\Entity\Setting
+      mappedBy: type

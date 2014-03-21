@@ -16,11 +16,12 @@ class Setting
      */
     public function __construct()
     {
-        $this->children = new ArrayCollection();
         $this->isEncrypted = false;
+
+        $this->children = new ArrayCollection();
     }
 
-    // -- Methods ---------------------------------------
+    // -- Entity ---------------------------------------
 
     /**
      * @var string
@@ -293,28 +294,5 @@ class Setting
     public function getIsEncrypted()
     {
         return $this->isEncrypted;
-    }
-
-    /**
-     * Add children
-     *
-     * @param Setting $children
-     * @return Setting
-     */
-    public function addChildren(Setting $children)
-    {
-        $this->children[] = $children;
-
-        return $this;
-    }
-
-    /**
-     * Remove children
-     *
-     * @param Setting $children
-     */
-    public function removeChildren(Setting $children)
-    {
-        $this->children->removeElement($children);
     }
 }
