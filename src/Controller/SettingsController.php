@@ -36,11 +36,6 @@ class SettingsController extends Controller
         return $this->get('werkint.settings.encrypter');
     }
 
-    protected function serviceWebscript()
-    {
-        return $this->get('werkint.webscript');
-    }
-
     // -- Actions ---------------------------------------
 
     /**
@@ -50,7 +45,6 @@ class SettingsController extends Controller
     public function indexAction()
     {
         $nodes = $this->serviceTreebuilder()->getTree();
-        $this->serviceWebscript()->attach('tinymce');
 
         return [
             'nodes' => $nodes,
