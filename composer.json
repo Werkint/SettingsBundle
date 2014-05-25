@@ -17,7 +17,7 @@
         "werkint/webapp-bundle":    "0.1.x-dev",
 
 
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "require-dev": {
         "werkint/framework-extra-bundle": "0.1.x-dev",
