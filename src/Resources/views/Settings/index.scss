@@ -24,7 +24,7 @@
       }
       width: 1.2em;
       height: 1.2em;
-      background: url("#{$const-imgpath}/preloader.gif") no-repeat center center;
+      background: url("@WerkintSettingsBundle/img/preloader.gif") no-repeat center center;
       background-size: 90% 90%;
     }
   }
@@ -68,7 +68,7 @@
           margin-right: .8em;
           height: 2em;
           width: 5em;
-          background: url("/res/img/preloader.gif") no-repeat right center;
+          background: url("@WerkintSettingsBundle/img/preloader.gif") no-repeat right center;
           background-size: auto 90%;
           button {
             display: none;
